@@ -1,9 +1,16 @@
-# Redireciona sem www → com www
+# Redireciona sem www para www
 domingos-automacoes.shop {
     redir https://www.domingos-automacoes.shop{uri} permanent
 }
 
-# Site principal (com www) com SSL forçado
+# Site principal com SSL forçado e Let's Encrypt
 www.domingos-automacoes.shop {
     reverse_proxy proxy:80
+
+    tls {
+        issuer acme {
+            ca https://acme-v02.api.letsencrypt.org/directory
+            email fadomingosf@gmail.com
+        }
+    }
 }
