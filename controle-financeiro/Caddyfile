@@ -1,13 +1,17 @@
-proxy:
-  image: caddy:2.7
-  volumes:
-    - ./Caddyfile:/etc/caddy/Caddyfile
-    - caddy_data:/data
-    - caddy_config:/config
-  depends_on:
-    - frontend
-    - backend
-  restart: always
-  ports:
-    - "80:80"
-    - "443:443"
+# Redireciona www para o domínio raiz
+www.domingos-automacoes.shop {
+    redir https://domingos-automacoes.shop{uri}
+}
+
+# Domínio principal
+domingos-automacoes.shop {
+    encode gzip
+
+    # Frontend (padrão)
+    reverse_proxy frontend:80
+
+    # Backend (API)
+    handle_path /api/* {
+        reverse_proxy backend:8000
+    }
+}
