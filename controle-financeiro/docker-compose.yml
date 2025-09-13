@@ -1,0 +1,38 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      SECRET_KEY: "sua_chave_segura"
+      SQLALCHEMY_DATABASE_URI: "sqlite+aiosqlite:///./financeiro.db"
+      CORS_ORIGINS: '["https://domingos-automacoes.shop", "https://www.domingos-automacoes.shop"]'
+    expose:
+      - "8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+    expose:
+      - "80"
+
+  proxy:
+    image: caddy:latest
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - backend
+      - frontend
+
+volumes:
+  caddy_data:
+  caddy_config:
