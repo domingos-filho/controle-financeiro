@@ -1,9 +1,0 @@
-fastapi
-uvicorn[standard]
-sqlalchemy[asyncio]
-aiosqlite
-alembic
-passlib[bcrypt]
-pyjwt
-slowapi
-python-jose[cryptography]
