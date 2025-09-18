@@ -1,4 +1,4 @@
- COPY frontend /app/static
+
 services:
   app:
     build:
