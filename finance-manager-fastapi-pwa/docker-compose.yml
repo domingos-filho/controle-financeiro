@@ -10,7 +10,7 @@ services:
       - APP_ENV=${APP_ENV:-production}
       - SECRET_KEY=${SECRET_KEY:-aa1c5be27385efc48d9f18a6ba914f87}
       - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES:-43200}
-      - DATABASE_URL=postgresql+psycopg2://finance:finance@postgres:5432/financedb
+      - DATABASE_URL=postgresql+psycopg2://domingos_filho:fAdf21mj$@postgres:5432/financedb
       - CORS_ORIGINS=${CORS_ORIGINS:-https://appfinanceiro.domingos-automacoes.shop}
       - FIRST_SUPERUSER_EMAIL=${FIRST_SUPERUSER_EMAIL:-fadomingosf@gmail.com}
       - FIRST_SUPERUSER_PASSWORD=${FIRST_SUPERUSER_PASSWORD:-fAdf21mj$}
