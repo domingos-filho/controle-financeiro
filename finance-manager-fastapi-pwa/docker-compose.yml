@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    container_name: finance-app
+ 
     restart: unless-stopped
     environment:
       - APP_ENV=${APP_ENV:-production}
@@ -14,8 +14,7 @@ services:
       - CORS_ORIGINS=${CORS_ORIGINS:-*}
       - FIRST_SUPERUSER_EMAIL=${FIRST_SUPERUSER_EMAIL:-admin@example.com}
       - FIRST_SUPERUSER_PASSWORD=${FIRST_SUPERUSER_PASSWORD:-ChangeMe123!}
-    ports:
-      - "8000:8000"
+  
     volumes:
       - data:/data
     healthcheck:
