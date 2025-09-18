@@ -1,21 +1,19 @@
-
 services:
   app:
     build:
       context: .
       dockerfile: docker/Dockerfile
-
-
     restart: unless-stopped
+    depends_on:
+      - postgres
     environment:
       - APP_ENV=${APP_ENV:-production}
       - SECRET_KEY=${SECRET_KEY:-aa1c5be27385efc48d9f18a6ba914f87}
       - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES:-43200}
-      - DATABASE_URL=${DATABASE_URL:-sqlite:////data/app.db}
-      - CORS_ORIGINS=${ORS_ORIGINS:-https://www.appfinanceiro.domingos-automacoes.shop}
+      - DATABASE_URL=postgresql+psycopg2://finance:finance@postgres:5432/financedb
+      - CORS_ORIGINS=${CORS_ORIGINS:-https://appfinanceiro.domingos-automacoes.shop}
       - FIRST_SUPERUSER_EMAIL=${FIRST_SUPERUSER_EMAIL:-fadomingosf@gmail.com}
       - FIRST_SUPERUSER_PASSWORD=${FIRST_SUPERUSER_PASSWORD:-fAdf21mj$}
-  
     volumes:
       - data:/data
     healthcheck:
@@ -24,23 +22,21 @@ services:
       timeout: 5s
       retries: 5
 
-# Uncomment to use Postgres instead of SQLite
-#  postgres:
-#    image: postgres:16
-#    container_name: finance-postgres
-#    restart: unless-stopped
-#    environment:
-#      - POSTGRES_DB=financedb
-#      - POSTGRES_USER=finance
-#      - POSTGRES_PASSWORD=finance
-#    volumes:
-#      - pgdata:/var/lib/postgresql/data
-#    healthcheck:
-#      test: ["CMD-SHELL", "pg_isready -U finance -d financedb"]
-#      interval: 10s
-#      timeout: 5s
-#      retries: 10
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=financedb
+      - POSTGRES_USER=domingos_filho
+      - POSTGRES_PASSWORD=fAdf21mj$
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U finance -d financedb"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
 volumes:
   data:
-#  pgdata:
+  pgdata:
