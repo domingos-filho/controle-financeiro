@@ -27,6 +27,12 @@ app.add_middleware(
 # Serve frontend (PWA) from /
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+# Rota raiz -> retorna o frontend
+@app.get("/")
+async def read_index():
+    index_path = os.path.join("static", "index.html")
+    return FileResponse(index_path)
+
 @app.get("/health")
 def health():
     return {"status": "ok"}
