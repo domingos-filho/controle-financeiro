@@ -12,6 +12,9 @@ from . import models
 from .routers import crud_routes, report_routes, sync_routes
 from .routers import auth_token, user_routes
 
+from fastapi.responses import FileResponse
+import os
+
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title=settings.APP_NAME)
@@ -27,11 +30,16 @@ app.add_middleware(
 # Serve frontend (PWA) from /
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# Rota raiz -> retorna o frontend
+
 @app.get("/")
-async def read_index():
+def read_index():
     index_path = os.path.join("static", "index.html")
-    return FileResponse(index_path)
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+    return {"message": "Frontend not found"}
+
+
+
 
 @app.get("/health")
 def health():
