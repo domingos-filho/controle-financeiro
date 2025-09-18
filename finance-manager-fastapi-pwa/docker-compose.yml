@@ -1,10 +1,11 @@
-
+ COPY frontend /app/static
 services:
   app:
     build:
       context: .
       dockerfile: docker/Dockerfile
- 
+
+
     restart: unless-stopped
     environment:
       - APP_ENV=${APP_ENV:-production}
