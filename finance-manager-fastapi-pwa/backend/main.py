@@ -25,7 +25,7 @@ app.add_middleware(
 )
 
 # Serve frontend (PWA) from /
-app.mount("/static", StaticFiles(directory="frontend"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/health")
 def health():
