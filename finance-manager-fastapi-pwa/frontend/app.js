@@ -84,3 +84,9 @@ document.querySelector(".fab").addEventListener("click", () => {
     });
   }
 });
+
+document.querySelector(".fab").addEventListener("click", () => {
+  alert("Abrir formulário de nova transação (implementar modal aqui)");
+  // Aqui depois você pode abrir um modal para lançar a transação
+});
+
