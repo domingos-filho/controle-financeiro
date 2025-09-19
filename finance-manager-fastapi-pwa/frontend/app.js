@@ -1,4 +1,4 @@
-const API_BASE = window.location.origin;
+const API_BASE = "https://www.appfinanceiro.domingos-automacoes.shop"; 
 
 const screens = {
   login: document.getElementById("login"),
@@ -26,3 +26,30 @@ const root=document.documentElement;const themeToggle=document.getElementById("t
 function applyTheme(theme){root.setAttribute("data-theme",theme);localStorage.setItem("theme",theme);themeToggle.textContent=theme==="dark"?"🌙":"☀️";}
 themeToggle.addEventListener("click",()=>{const current=root.getAttribute("data-theme")||"dark";applyTheme(current==="dark"?"light":"dark");});
 applyTheme(localStorage.getItem("theme")||"dark");
+
+// Login handler
+document.getElementById("loginForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const res = await fetch(`${API_BASE}/login/access-token`, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({ username: email, password: password })
+  });
+
+  if(res.ok){
+    const data = await res.json();
+    localStorage.setItem("token", data.access_token);
+    show("dashboard");
+  } else {
+    alert("Login inválido!");
+  }
+});
+
+// Logout
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  localStorage.removeItem("token");
+  show("login");
+});
