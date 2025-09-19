@@ -29,14 +29,15 @@ app.add_middleware(
 
 # Serve frontend (PWA) from /
 app.mount("/static", StaticFiles(directory="static"), name="static")
+# Servir arquivos estáticos
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
+
+# Servir o index.html na raiz
 @app.get("/")
-def read_index():
-    index_path = os.path.join("static", "index.html")
-    if os.path.exists(index_path):
-        return FileResponse(index_path)
-    return {"message": "Frontend not found"}
+async def serve_frontend():
+    return FileResponse("static/index.html")
 
 
 
