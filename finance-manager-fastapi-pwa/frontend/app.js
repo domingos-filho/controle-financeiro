@@ -1,5 +1,12 @@
 const API_BASE = "https://www.appfinanceiro.domingos-automacoes.shop"; 
 
+// Redirecionar para login se não houver token
+if(!localStorage.getItem("token")){
+  show("login");
+} else {
+  show("dashboard");
+}
+
 const screens = {
   login: document.getElementById("login"),
   dashboard: document.getElementById("dashboard"),
@@ -52,4 +59,28 @@ document.getElementById("loginForm").addEventListener("submit", async e => {
 document.getElementById("logoutBtn").addEventListener("click", () => {
   localStorage.removeItem("token");
   show("login");
+});
+
+
+document.querySelector(".fab").addEventListener("click", () => {
+  const desc = prompt("Descrição da transação:");
+  const valor = prompt("Valor (positivo = receita, negativo = despesa):");
+
+  if(desc && valor){
+    fetch(`${API_BASE}/transactions`, {
+      method: "POST",
+      headers: { 
+        "Authorization": "Bearer " + localStorage.getItem("token"),
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ description: desc, amount: parseFloat(valor) })
+    }).then(r=>{
+      if(r.ok){
+        alert("Transação lançada!");
+        // recarregar lista depois
+      } else {
+        alert("Erro ao salvar!");
+      }
+    });
+  }
 });
