@@ -1,3 +1,15 @@
+
+const API_BASE = "https://appfinanceiro.domingos-automacoes.shop"; 
+// mesmo que app.js
+
+const adminLink = document.getElementById("adminLink");
+function checkAdmin(user) {
+  if (user.role === "admin") {
+    adminLink.classList.remove("hidden");
+  } else {
+    adminLink.classList.add("hidden");
+  }
+}
 const userList=document.getElementById("userList");
 const newUserForm=document.getElementById("newUserForm");
 
