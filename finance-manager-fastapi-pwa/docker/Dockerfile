@@ -17,8 +17,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copiar backend
 COPY backend /app/backend
 
-# Copiar frontend atualizado para pasta /app/static
-COPY frontend /app/static
+# Copia frontend compilado para static
+COPY frontend/ /app/static
 
 # Expor porta do Uvicorn
 EXPOSE 8000
