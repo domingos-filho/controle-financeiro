@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Financeiro</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="app">
+  <header class="topbar">
+    <button id="drawerToggle">☰</button>
+    <h1>App Financeiro</h1>
+    <button id="themeToggle" class="icon-btn">🌙</button>
+  </header>
+
+  <aside id="drawer" class="drawer hidden">
+    <div class="drawer-header">
+      <div class="avatar">👤</div>
+      <div class="user-info">
+        <span id="drawerName">Usuário</span><br>
+        <small id="drawerEmail">email@exemplo.com</small>
+      </div>
+    </div>
+    <nav>
+      <a href="#" class="drawer-link" data-screen="dashboard">🏠 Dashboard</a>
+      <a href="#" class="drawer-link" data-screen="transactions">💸 Transações</a>
+      <a href="#" class="drawer-link" data-screen="wallets">👛 Carteiras</a>
+      <a href="#" class="drawer-link" data-screen="reports">📊 Relatórios</a>
+      <a href="#" id="adminLink" class="drawer-link hidden" data-screen="admin">👤 Usuários</a>
+      <a href="#" id="logoutBtn" class="drawer-link">🚪 Sair</a>
+    </nav>
+  </aside>
+
+  <main id="main">
+    <section id="login" class="screen">
+      <h2>Entrar</h2>
+      <form id="loginForm">
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Senha" required>
+        <button type="submit" class="btn">Entrar</button>
+      </form>
+    </section>
+
+    <section id="dashboard" class="screen hidden">
+      <h2>Dashboard</h2>
+      <div class="card-grid">
+        <div class="card">Saldo: <span id="saldo">R$0,00</span></div>
+        <div class="card">Receitas: <span id="receitas">R$0,00</span></div>
+        <div class="card">Despesas: <span id="despesas">R$0,00</span></div>
+      </div>
+    </section>
+
+    <section id="transactions" class="screen hidden">
+      <h2>Transações</h2>
+      <div id="transList"></div>
+    </section>
+
+    <section id="wallets" class="screen hidden">
+      <h2>Carteiras</h2>
+      <div id="walletList"></div>
+    </section>
+
+    <section id="reports" class="screen hidden">
+      <h2>Relatórios</h2>
+      <div id="reportCharts"></div>
+    </section>
+
+    <section id="admin" class="screen hidden">
+      <h2>Gerenciar Usuários</h2>
+      <div id="userList"></div>
+      <form id="newUserForm">
+        <input type="text" id="newName" placeholder="Nome" required>
+        <input type="email" id="newEmail" placeholder="Email" required>
+        <input type="password" id="newPassword" placeholder="Senha" required>
+        <select id="newRole">
+          <option value="read">Leitura</option>
+          <option value="write">Escrita</option>
+          <option value="admin">Administrador</option>
+        </select>
+        <button type="submit" class="btn">Criar Usuário</button>
+      </form>
+    </section>
+  </main>
+
+  <nav class="tabs">
+    <a class="tab" data-screen="dashboard">🏠</a>
+    <a class="tab" data-screen="transactions">💸</a>
+    <button class="fab">＋</button>
+    <a class="tab" data-screen="wallets">👛</a>
+    <a class="tab" data-screen="reports">📊</a>
+  </nav>
+
+  <script src="app.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
