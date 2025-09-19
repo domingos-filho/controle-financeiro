@@ -29,17 +29,11 @@ app.add_middleware(
 
 # Serve frontend (PWA) from /
 app.mount("/static", StaticFiles(directory="static"), name="static")
-# Servir arquivos estáticos
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
-
 
 # Servir o index.html na raiz
 @app.get("/")
 async def serve_frontend():
     return FileResponse("static/index.html")
-
-
 
 
 @app.get("/health")
