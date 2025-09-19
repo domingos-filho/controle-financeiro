@@ -1,4 +1,4 @@
-const API_BASE = "";
+const API_BASE = window.location.origin;
 
 const screens = {
   login: document.getElementById("login"),
