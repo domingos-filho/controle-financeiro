@@ -1,28 +1,28 @@
-# Imagem base oficial Python
 FROM python:3.11-slim
 
-# Define diretório de trabalho
+# Variáveis de ambiente
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Criar diretório de trabalho
 WORKDIR /app
 
-# Instala dependências do sistema (para psycopg2, bcrypt etc.)
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
+# Instalar dependências do sistema (opcional, dependendo das libs)
+RUN apt-get update && apt-get install -y build-essential libpq-dev curl
 
-# Copia requirements
+# Copiar requirements e instalar
 COPY requirements.txt .
-
-# Instala dependências Python
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia backend e frontend
+# Copiar backend
 COPY backend /app/backend
+
+# Copiar frontend atualizado para pasta /app/static
 COPY frontend /app/static
 
-# Expõe porta do Uvicorn
+# Expor porta do Uvicorn
 EXPOSE 8000
 
-# Comando para rodar o servidor
+# Rodar aplicação
 CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
